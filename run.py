@@ -6,11 +6,15 @@ from app.models import *  # Ensures Flask-Migrate sees all models
 app = create_app()
 migrate = Migrate(app, db)
 
-# ✅ Auto-run migrations on server start (e.g., Render)
-@app.before_first_request
-def apply_migrations():
-    try:
-        upgrade()
-        print("✅ Database migrations applied.")
-    except Exception as e:
-        print(f"❌ Migration error: {e}")
+# ✅ Auto-run migrations when deployed (e.g., on Render)
+if __name__ == "__main__":
+    import os
+    if os.environ.get("RENDER"):  # Only run this on Render deployment
+        with app.app_context():
+            try:
+                upgrade()
+                print("✅ Database migrations applied.")
+            except Exception as e:
+                print(f"❌ Migration error: {e}")
+
+    app.run()
