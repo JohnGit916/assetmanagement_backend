@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+
+# Environment variables
+.env.*
+*.env
+
+# Pytest
+.cache/
+.coverage
+htmlcov/
+*.cover
+*.py,cover
+
+# Migrations (optional to ignore migration history, or include it if needed)
+migrations/__pycache__/
+migrations/*.pyc
+migrations/*.py~
+migrations/versions/*.pyc
+migrations/versions/__pycache__/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Render build files (if any)
+build/
