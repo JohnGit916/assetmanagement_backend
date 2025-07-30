@@ -1,11 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
+from flask_cors import CORS  # ✅ ADD THIS
 from flask_swagger_ui import get_swaggerui_blueprint
 
 db = SQLAlchemy()
 jwt = JWTManager()
 migrate = Migrate()
+cors = CORS()  # ✅ ADD THIS
 
 def init_swagger(app):
     swaggerui_blueprint = get_swaggerui_blueprint(
