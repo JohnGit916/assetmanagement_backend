@@ -1,19 +1,26 @@
 from flask import Flask
-from .config import Config
-from .extensions import db, jwt, migrate, init_swagger
-from .routes import register_routes  # Clean import for all routes
+from .extensions import db, jwt, cors, migrate
+from .models import init_app_models
+
+# ✅ IMPORT YOUR BLUEPRINT
+from app.routes.auth import auth_bp
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(Config)
+    
+    # Load config
+    app.config.from_object("config.Config")
 
     # Initialize extensions
     db.init_app(app)
     jwt.init_app(app)
+    cors.init_app(app)
     migrate.init_app(app, db)
-    init_swagger(app)
 
-    # Register all API routes
-    register_routes(app)
+    # ✅ REGISTER BLUEPRINT
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+
+    # Load models
+    init_app_models()
 
     return app
